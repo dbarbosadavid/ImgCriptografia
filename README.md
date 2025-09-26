@@ -27,7 +27,7 @@ Ideal para fins didáticos e demonstrações simples de esteganografia.
 ### Instalar dependências
 
 ```bash
-pip install opencv-python matplotlib unidecode
+py -m pip install opencv-python matplotlib unidecode
 ```
 
 * Executar 
