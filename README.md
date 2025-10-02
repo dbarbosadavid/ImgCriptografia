@@ -18,8 +18,7 @@ Ideal para fins didáticos e demonstrações simples de esteganografia.
 ## Requisitos
 
 - Python 3.x
-- OpenCV (`cv2`)
-- matplotlib
+- Pillow
 - unidecode
 
 ## Para rodar em Python 3 
@@ -27,7 +26,7 @@ Ideal para fins didáticos e demonstrações simples de esteganografia.
 ### Instalar dependências
 
 ```bash
-py -m pip install opencv-python matplotlib unidecode
+py -m pip install Pillow unidecode
 ```
 
 * Executar 
@@ -43,3 +42,4 @@ py encriptar.py caminho/da/imagem.png --decript
 
 
 # PROJETO FEITO PARA FINS ACADÊMICOS
+Desenvolvido por David, Isabelle e Isabelly

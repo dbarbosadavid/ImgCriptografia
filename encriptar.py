@@ -1,19 +1,24 @@
-import cv2
-import matplotlib.pyplot as plt
+from PIL import Image
 import unidecode
 import argparse
 import os
 import sys
 
 def encriptar(img, text):
+    pixels = img.load()
+    print(pixels)
     for i in range(len(text)):
-        img[i][0][2] = ord(text[i])
+        r, g, b = pixels[0, i]
+        b = ord(text[i])
+        pixels[0, i] = (r, g, b)
     return img
 
-def decriptar(imgCriptada, max_len=100):
+def decriptar(img, max_len=100):
+    pixels = img.load()
     texto = ''
     for i in range(max_len):
-        char = chr(imgCriptada[i][0][0])
+        r, g, b = pixels[0, i]
+        char = chr(b)
         char_normalize = unidecode.unidecode(char).lower()
         if not char == char_normalize:
             break
@@ -21,7 +26,7 @@ def decriptar(imgCriptada, max_len=100):
     return texto
 
 def save_image(imgCriptada, output_path="cript.png"):
-    plt.imsave(output_path, imgCriptada)
+    imgCriptada.save(output_path)
 
 def main():
     parser = argparse.ArgumentParser(description="Encriptação/Decriptação de texto em imagem.")
@@ -43,7 +48,7 @@ def main():
         print("Erro: apenas arquivos PNG são suportados.")
         sys.exit(1)
 
-    img = cv2.imread(args.image_path)
+    img = Image.open(args.image_path).convert("RGB")
     if img is None:
         print(f"Erro ao carregar imagem '{args.image_path}'.")
         sys.exit(1)
@@ -58,7 +63,7 @@ def main():
 
         text_normal = unidecode.unidecode(args.text).lower()
 
-        if len(text_normal) > img.shape[0]:
+        if len(text_normal) > img.height:
             print("Erro: Texto muito grande para ser encriptado nesta imagem.")
             sys.exit(1)
 
